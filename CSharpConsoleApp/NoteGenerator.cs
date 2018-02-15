@@ -10,14 +10,13 @@ namespace CSharpConsoleApp {
             Console.WriteLine("<freq> <length>");
             Console.WriteLine("Example: 6000 100");
             Console.WriteLine("Return to the main menu by typing 'exit'");
-            NoteInput();
+            while (NoteInput());
         }
 
-        private void NoteInput() {
+        private bool NoteInput() {
             String stringInput = Console.ReadLine();
             if (stringInput.ToLower().Equals("exit")) {
-                Program.greeting();
-                return;
+                return false;
             }
             String[] inputArray = stringInput.Split(' ');
             try {
@@ -26,8 +25,8 @@ namespace CSharpConsoleApp {
                 consoleBeep(freq, length);
             } catch (Exception) {
                 Console.WriteLine("Please enter a valid input");
-                NoteInput();
             }
+            return true;
         }
 
         private void consoleBeep(int freq, int length) {
@@ -35,8 +34,6 @@ namespace CSharpConsoleApp {
                 Console.Beep(freq, length);
             } catch (ArgumentOutOfRangeException) {
                 Console.WriteLine("frequency out of range");
-            } finally {
-                NoteInput();
             }
         }
     }
